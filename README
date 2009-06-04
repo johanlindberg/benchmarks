@@ -1,0 +1,234 @@
+Dear Researcher,
+
+
+
+It is my pleasure to make available to the community the suite of rule
+benchmark programs and data generators my group has assembled.
+
+You are welcome to collect and use them with citation and at your own
+risk.  If you have bug patches we will be happy to update our files
+for the community's benefit.  If you have a bug report we might try to
+fix it for you.
+
+If you do use them we would like you to register, just so we know who
+you are by sending an email note to "ops5suite@cs.utexas.edu".  Patches
+and additions should also be sent to that address.
+
+
+
+To collect the suite anonymous ftp to
+
+cs.utexas.edu
+
+and connect to 
+
+pub/ops5-benchmark-suite
+n
+
+Following is a the current listing of the directory.
+
+cs31> ls
+README            waltz.clp.tar     waltzdb.tar.Z
+arp.tar.Z         waltz.clp.tar.Z   weaver.clp.tar.Z
+manners.tar.Z     waltz.tar.Z       weaver.tar.Z
+cs32>
+
+
+This directory includes the OPS5 programs and data generators described
+in 
+
+@inproceedings{brantetal91,
+Author="D.A. Brant and T. Grose and B. Lofaso and D.P. Miranker",
+year ="1991",
+title="{Effects of Database Size on Rule System Performance:Five Case Studies}",
+booktitle="Proceedings of the 17th International Conference on
+Very Large Data Bases (VLDB)"
+}
+
+
+
+There are also clips versions of a couple of the programs.
+
+We are willing to add additional rule programs and generators to the
+suite.  If you have one you think should be added, not necessarily in
+OPS5, let us know.  The manners program can easily be made to work on
+the data used in the Wisconsin DB benchmark suite.  I would personally
+be interested if someone replaces our data generator with a Wisconsin
+generator.
+
+
+Sincerely,
+
+Daniel Miranker
+
+
+
+
+
+
+
+THE PROGRAMS AND DATA GENERATORS
+        
+This document will examine five diverse benchmark programs for the Ops5c
+compiler and explain how to use them quickly and effectively.  Each of the
+benchmarkable programs, ARP, Miss Manners, Waltz, WaltzDB, and Weaver, present a
+wide range of complexity, which has been achieved through a varying number of
+rules from each program to the next.  There is also a large amount of
+flexibility because each program has its own unique data set generator, with
+which data sets of many different sizes can be created.
+
+The next five sections explain how to compile each program, and set up the data
+generators.  The last section will demonstrate how to set up a script and
+execute a benchmark.  In order to help you comprehend the complexity of these
+benchmarks, each section will also include the values that we used in our
+testing, on a SPARC Station 1+.  Any commands which are given in this text, are
+based on the SunOS v4.0.3 and were done using our own OPS5c compiler.
+Your milage may vary.
+
+
+Miss Manners
+
+Miss Manners is a program which handles the problem of finding an acceptable
+seating arrangement for guests at a dinner party.  It will attempt to match
+people with the same hobbies, and to seat everyone next to a member of the
+opposite sex.  Manners is a small program, which has only eight rules, and
+employs a depth-first search approach to the problem.  It is an easy and fast
+program to generate data for, as well as to run benchmarks on.
+        
+The first step will be to create data which will be used by the manners program.
+The file manners_data.c contains the data set generator source code.  After it
+is compiled into an executible file and run, it will prompt the user for four
+numbers: the number of guests; the number of seats; the maximum number of
+hobbies; and the minimum number of hobbies.  The file will be saved
+manners_XX.dat where XX is the number of guests which were created for that
+file.
+  
+Here are the numbers for the data that we used to run benchmarks:
+16 guests, 16 seats, max 3 hobbies, min 2 hobbies;
+32 guests, 32 seats, max 3 hobbies, min 2 hobbies;
+64 guests, 64 seats, max 3 hobbies, min 2 hobbies;
+128 guests, 128 seats, max 3 hobbies, min 2 hobbies.
+
+Once a data set has been created, the program can be compiled and run.  First
+the manners.ops file must be compiled into an object file.  Then link this file
+with the Ops5 library module, which is located at /ops5c/lib/libops5c.a.  This
+will produce an executable file which will be placed into a file named a.out
+
+
+Waltz
+
+The Waltz program is an expert system, which will analyze the lines of a
+2-dimensional drawing, and label them as if they were edges in a 3-dimensional
+object.  The biggest limitation is that Waltz can only handle drawings with
+junctions of two and three lines.  However this problem has been taken care of,
+as we will see in the next section.  The Waltz data is easy to create, and
+because the program has only thirty-three rules it runs reasonably quickly.
+        
+The data set generator for Waltz is named waltzy.c, and it will need to be
+compiled into an executable file.  The data which is created by waltzy, is based
+totally on the number of regions that the user wants the drawing to have.  Since
+a single region has been predefined as a base drawing of 72 lines, the user will
+only need to input how many of these regions the drawing will have.  From this
+the data set generator will create a file named waltzXX.dat, where XX is the
+number of regions that the data set has.  For our benchmarks, we used 12, 25,
+37, and 50 region data sets.
+
+After the data generator is done, work can begin on the program itself.  First
+the waltz.ops file must be compiled into an object file.  Another program,
+waltz-file.c, contains information needed by the program and must also be
+compiled into an object file.  Then link waltz.o and waltz-file.o, along with
+the Ops5 library module which is located at /ops5c/lib/libops5c.a, and a math
+library.  This will produce an executable program in the temporary file a.out.
+
+
+WaltzDB
+
+The WaltzDB program is an expert system, like Waltz, which labels the lines in a
+2-dimensional drawing, in order to assign it the qualities of a 3-dimensional
+object.  The biggest change is that WaltzDB can handle drawings with junctions
+of four to six lines, while Waltz only does junctions of two or three.  For
+WaltzDB there are thirty-five rules, and its data sets have a lot of junctions,
+so it will run longer than a waltz program of the same number of regions.
+
+The data set generator for WaltzDB is named waltzydb.c, and it will need to be
+compiled into an executable file.  The data which is created by waltzydb, has
+been changed a little from the data generated from the original waltzy, but
+waltzydb still operates on the number of regions that the user wants the data
+set to have.  The data set generator will create a file named waltzdbXX.dat,
+where XX is the number of regions that the data set has.  For WaltzDB data we
+had used 4, 8, 12, and 16 regions in our tests.
+        
+To compile the program for WaltzDB, the steps are the same as for Waltz.  As
+before, the waltzdb.ops and waltz-file.c programs must be made into object
+modules and then linked with /ops5/lib/libops5c.a, and the math library.  This
+will produce an executable file in the temporary file a.out.
+
+
+Running Benchmarks
+
+In order to clear up any confusion about the instructions given above, I will
+step through the processes using the Manners program as an example.
+
+Compiling the data generator:   cc manners_data.c 
+                                mv a.out manners_data.exe
+Compiling the Manners program:  ops5c manners.ops
+Creating the Object module:     cc -c manners1.c
+Linking the files:              cc manners1.o ~/ops5c/lib/libops5c.a
+				mv a.out manners.exe
+
+Now that those have been compiled, you will need to created data for the program
+to use.  To start of with something simple, use a data set of: 16 Guests, 16
+chairs, 3 maximum hobbies, and 2 minimum hobbies.
+
+The first step in getting the benchmark running is to create a script of load
+and run statements which will be used by the executable program.  Here is a
+sample of what that script might look like:
+				(watch 0)		
+				(load manners_16.dat)
+				(run)
+				(exit)
+To start the benchmark, we will use the time command, and redirect the output to
+a file for later reference:
+
+	   (time manners.exe < script >& output.file)>& time.output & 
+
+In this example there are four file names involved, and two of these files
+have already been created.  The first is manners.exe which is the executable
+file we want to time, and the other file is script which contains the 4 lines
+given above.  The other two files are output and time.output, which will be
+created after the time command.  The output file will store things which would
+have initially been printed to the screen, and time.output will store the time
+it took to run the benchmark in clock time, as well as cpu seconds.
+
+In the case of the manners_16 data set, the time should not be more than a few
+seconds.  However most of the benchmarks will last more than a few minutes, and
+some may last hours, so using the time command in this fashion is convenient.
+For the best timing results, do not run anything which is very demanding on the
+cpu at the same time as running your benchmark.  Here is a list of the benchmark
+times we have had, in order that you may gauge how long each data set should
+take.  Note that these times were run on the SPARC Station 1+, and that a
+statistical flag was used during the timing.  So if you are using a SPARC
+Station 1+ or an equivalent machine the times should be slightly shorter.
+  
+ ________________________________________________________
+|  PROGRAM     |   DATA SET SIZE  |  SPARC 1+  TIME     |
+---------------------------------------------------------
+|  MANNERS     |   16 GUESTS      |        1.0          |
+|              |   32 GUESTS      |       13.8          |
+|              |   64 GUESTS      |      425.8          |
+|              |  128 GUESTS      |     5838.5          |
+---------------------------------------------------------
+|  WALTZ       |   12 REGIONS     |      343.3          |
+|              |   25 REGIONS     |      988.0          |
+|              |   37 REGIONS     |     2963.0          |
+|              |   50 REGIONS     |     3831.8          |
+---------------------------------------------------------
+|  WALTZ_DB    |    4 REGIONS     |      641.5          |
+|              |    8 REGIONS     |     2109.6          |
+|              |   12 REGIONS     |     4341.6          |
+|              |   16 REGIONS     |     8033.3          |
+---------------------------------------------------------
+
+
+* all time results are in cpu seconds*
+* all executables were compiled in Ops5c  V1.09*
