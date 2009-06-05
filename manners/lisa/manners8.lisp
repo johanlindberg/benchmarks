@@ -4,7 +4,7 @@
 (in-package "LISA-MANNERS-8")
 
 (make-inference-engine)
-(load "manners.lisp")
-(load "manners8-facts.lisp")
+(load "~/Projects/benchmarks/manners/lisa/manners.lisp")
+(load "~/Projects/benchmarks/manners/lisa/manners8-facts.lisp")
 (reset)
 (time (run))
