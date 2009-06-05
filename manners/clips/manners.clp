@@ -13,7 +13,7 @@
 ;;; Defglobals
 ;;; ##########
 
-(defglobal ?*output* = nil) ; Disabled = nil Enabled = t
+(defglobal ?*output* = t) ; Disabled = nil Enabled = t
 
 ;;; ############
 ;;; Deftemplates
