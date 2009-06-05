@@ -32,7 +32,7 @@
   (slot c))
 
 (defrule assign_first_seat ()
-   (?f1 (context (state 'start)))
+   (?f1 (context (state start)))
    (guest (name ?n))
    (?f3 (count (c ?c)))
    =>
