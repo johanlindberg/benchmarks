@@ -15,7 +15,7 @@
   (slot pid)
   (slot path_done))
 
-(deftemplate context ()
+(deftemplate ctxt ()
   (slot state))
 
 (deftemplate path ()
@@ -32,7 +32,7 @@
   (slot c))
 
 (defrule assign_first_seat ()
-   (?f1 (context (state start)))
+   (?f1 (ctxt (state start)))
    (guest (name ?n))
    (?f3 (count (c ?c)))
    =>
@@ -43,7 +43,7 @@
    (modify ?f1 (state assign_seats)))
 
 (defrule find_seating ()
-   (?f1 (context (state assign_seats)))
+   (?f1 (ctxt (state assign_seats)))
    (seating (seat1 ?seat1) (seat2 ?seat2) (name2 ?n2) (id ?id) (pid ?pid) (path_done yes))
    (guest (name ?n2) (sex ?s1) (hobby ?h1))
    (guest (name ?g2) (sex ~?s1) (hobby ?h1))
@@ -55,11 +55,11 @@
    (assert (path (id ?c) (name ?g2) (seat (+ ?seat2 1))))
    (assert (chosen (id ?id) (name ?g2) (hobby ?h1)))
    (modify ?f5 (c (+ ?c 1)))
-   (format t "seat ~A ~A ~A~%" ?seat2 ?n2 ?g2 crlf)
+   (format t "seat ~A ~A ~A~%" ?seat2 ?n2 ?g2)
    (modify ?f1 (state make_path)))
 
 (defrule make_path ()
-   (context (state make_path))
+   (ctxt (state make_path))
    (seating (id ?id) (pid ?pid) (path_done no))
    (path (id ?pid) (name ?n1) (seat ?s))
    (not (path (id ?id) (name ?n1)))
@@ -67,14 +67,14 @@
    (assert (path (id ?id) (name ?n1) (seat ?s))))
 
 (defrule path_done ()
-   (?f1 (context (state make_path)))
+   (?f1 (ctxt (state make_path)))
    (?f2 (seating (path_done no)))
    =>
    (modify ?f2 (path_done yes))
    (modify ?f1 (state check_done)))
 
 (defrule are_we_done ()
-   (?f1 (context (state check_done)))
+   (?f1 (ctxt (state check_done)))
    (last_seat (seat ?l_seat))
    (seating (seat2 ?l_seat))
    =>
@@ -82,12 +82,12 @@
    (modify ?f1 (state print_results)))
 
 (defrule continue ()
-   (?f1 (context (state check_done)))
+   (?f1 (ctxt (state check_done)))
    =>
    (modify ?f1 (state assign_seats)))
 
 (defrule print_results ()
-   (context (state print_results))
+   (ctxt (state print_results))
    (seating (id ?id) (seat2 ?s2))
    (last_seat (seat ?s2))
    (?f4 (path (id ?id) (name ?n) (seat ?s)))
@@ -96,6 +96,6 @@
    (format t "~A ~A~%" ?n ?s))
 
 (defrule all_done ()
-   (context (state print_results))
+   (ctxt (state print_results))
    =>
    (halt))
