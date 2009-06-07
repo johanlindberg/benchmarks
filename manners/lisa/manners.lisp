@@ -46,7 +46,8 @@
    (?f1 (ctxt (state assign_seats)))
    (seating (seat1 ?seat1) (seat2 ?seat2) (name2 ?n2) (id ?id) (pid ?pid) (path_done yes))
    (guest (name ?n2) (sex ?s1) (hobby ?h1))
-   (guest (name ?g2) (sex ~?s1) (hobby ?h1))
+   (guest (name ?g2) (sex ?s2) (hobby ?h1))
+   (test (not (equal ?s1 ?s2)))
    (?f5 (count (c ?c)))
    (not (path (id ?id) (name ?g2)))
    (not (chosen (id ?id) (name ?g2) (hobby ?h1)))
@@ -59,6 +60,8 @@
    (modify ?f1 (state make_path)))
 
 (defrule make_path ()
+   (declare (salience 1))
+
    (ctxt (state make_path))
    (seating (id ?id) (pid ?pid) (path_done no))
    (path (id ?pid) (name ?n1) (seat ?s))
