@@ -39,7 +39,6 @@
    (assert (seating (seat1 1) (name1 ?n) (name2 ?n) (seat2 1) (id ?c) (pid 0) (path_done yes)))
    (assert (path (id ?c) (name ?n) (seat 1)))
    (modify ?f3 (c (+ ?c 1)))
-   (format t "seat 1 ~A ~A 1 ~A 0 1~%" ?n ?n ?c)
    (modify ?f1 (state assign_seats)))
 
 (defrule find_seating ()
@@ -47,7 +46,7 @@
    (seating (seat1 ?seat1) (seat2 ?seat2) (name2 ?n2) (id ?id) (pid ?pid) (path_done yes))
    (guest (name ?n2) (sex ?s1) (hobby ?h1))
    (guest (name ?g2) (sex ?s2) (hobby ?h1))
-   (test (not (equal ?s1 ?s2)))
+   (test (not (eql ?s1 ?s2)))
    (?f5 (count (c ?c)))
    (not (path (id ?id) (name ?g2)))
    (not (chosen (id ?id) (name ?g2) (hobby ?h1)))
@@ -56,12 +55,9 @@
    (assert (path (id ?c) (name ?g2) (seat (+ ?seat2 1))))
    (assert (chosen (id ?id) (name ?g2) (hobby ?h1)))
    (modify ?f5 (c (+ ?c 1)))
-   (format t "seat ~A ~A ~A~%" ?seat2 ?n2 ?g2)
    (modify ?f1 (state make_path)))
 
-(defrule make_path ()
-   (declare (salience 1))
-
+(defrule make_path (:salience 1)
    (ctxt (state make_path))
    (seating (id ?id) (pid ?pid) (path_done no))
    (path (id ?pid) (name ?n1) (seat ?s))
@@ -95,8 +91,8 @@
    (last_seat (seat ?s2))
    (?f4 (path (id ?id) (name ?n) (seat ?s)))
    =>
-   (retract ?f4)
-   (format t "~A ~A~%" ?n ?s))
+   (format t "~&~A ~A" ?n ?s)
+   (retract ?f4))
 
 (defrule all_done ()
    (ctxt (state print_results))
