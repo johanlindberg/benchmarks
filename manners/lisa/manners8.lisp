@@ -1,11 +1,3 @@
-(defpackage "LISA-MANNERS-8"
-  (:use "LISA-LISP"))
-
-(in-package "LISA-MANNERS-8")
-
-(make-inference-engine)
-(load "~/Projects/benchmarks/manners/lisa/manners.lisp")
-
 (deffacts manners-8 ()
   (guest (name n1) (sex m) (hobby h3))
   (guest (name n1) (sex m) (hobby h2))
@@ -29,5 +21,3 @@
   (last_seat (seat 8))
   (count (c 1))
   (ctxt (state start)))
-(reset)
-(time (run))
