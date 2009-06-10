@@ -2,11 +2,13 @@
   (:use :LISA-LISP))
 (in-package :lisa-manners)
 
+(defvar *path-to-files* "~/Projects/benchmarks/manners/lisa/")
+
 (defun init-manners (n)
   (make-inference-engine)
   (clear)
-  (load "~/Projects/benchmarks/manners/lisa/manners.lisp")
-  (load (format nil "~~/Projects/benchmarks/manners/lisa/manners~A.lisp" n))
+  (load (merge-pathnames *path-to-files* "manners.lisp"))
+  (load (merge-pathnames *path-to-files* (format nil "manners~A.lisp" n)))
 
   t)
 
