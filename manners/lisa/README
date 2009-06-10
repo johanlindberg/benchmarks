@@ -1,0 +1,59 @@
+; SLIME 2008-09-22
+CL-USER> (load "~/lisa/install.lisp")
+; loading system definition from /Users/johanlindberg/lisa/lisa.asd into #<Package "ASDF0">
+; registering #<SYSTEM LISA #x3000414978ED> as LISA
+#P"/Users/johanlindberg/lisa/install.lisp"
+CL-USER> (load "~/Projects/benchmarks/manners/lisa/test-manners.lisp")
+#P"/Users/johanlindberg/Projects/benchmarks/manners/lisa/test-manners.lisp"
+CL-USER> (in-package :lisa-manners)
+#<Package "LISA-MANNERS">
+LISA-MANNERS> (init-manners 8)
+T
+LISA-MANNERS> (run-manners 5)
+Yes, we are done!!
+N4 7
+N8 8
+N3 4
+N6 5
+N7 3
+N2 6
+N1 2
+N5 1
+Yes, we are done!!
+N4 1
+N8 2
+N3 4
+N6 3
+N5 7
+N1 8
+N2 6
+N7 5
+Yes, we are done!!
+N6 2
+N3 5
+N7 4
+N8 3
+N5 6
+N2 1
+N1 7
+N4 8
+Yes, we are done!!
+N7 6
+N8 3
+N4 2
+N3 5
+N1 7
+N5 4
+N2 1
+N6 8
+Yes, we are done!!
+N6 8
+N5 2
+N8 7
+N3 1
+N1 3
+N7 6
+N4 4
+N2 5
+"6.20 sec (avg of 5 runs)"
+("17.53 sec" "1.13 sec" "8.39 sec" "1.88 sec" "2.05 sec")
