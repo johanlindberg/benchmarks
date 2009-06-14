@@ -7,8 +7,8 @@
 (defun init-manners (n)
   (make-inference-engine)
   (clear)
-  (load (merge-pathnames *path-to-files* "manners.lisp"))
-  (load (merge-pathnames *path-to-files* (format nil "manners~A.lisp" n)))
+  (load (compile-file (merge-pathnames *path-to-files* "manners.lisp")))
+  (load (compile-file (merge-pathnames *path-to-files* (format nil "manners~A.lisp" n))))
 
   t)
 
