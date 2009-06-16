@@ -72,7 +72,7 @@
    (modify ?f2 (path_done yes))
    (modify ?f1 (state check_done)))
 
-(defrule are_we_done ()
+(defrule are_we_done (:salience 1)
    (?f1 (ctxt (state check_done)))
    (last_seat (seat ?l_seat))
    (seating (seat2 ?l_seat))
