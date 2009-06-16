@@ -85,7 +85,7 @@
    =>
    (modify ?f1 (state assign_seats)))
 
-(defrule print_results ()
+(defrule print_results (:salience 1)
    (ctxt (state print_results))
    (seating (id ?id) (seat2 ?s2))
    (last_seat (seat ?s2))
