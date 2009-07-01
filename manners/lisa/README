@@ -7,53 +7,94 @@ CL-USER> (load "~/Projects/benchmarks/manners/lisa/test-manners.lisp")
 #P"/Users/johanlindberg/Projects/benchmarks/manners/lisa/test-manners.lisp"
 CL-USER> (in-package :lisa-manners)
 #<Package "LISA-MANNERS">
-LISA-MANNERS> (init-manners 8)
+LISA-MANNERS> (init-manners 16)
 T
 LISA-MANNERS> (run-manners 5)
+
 Yes, we are done!!
-N4 7
-N8 8
-N3 4
-N6 5
-N7 3
-N2 6
-N1 2
-N5 1
+N1 15
+N2 13
+N7 11
+N8 9
+N9 7
+N14 5
+N15 3
+N16 1
+N13 2
+N11 4
+N12 6
+N10 8
+N6 10
+N5 12
+N4 14
+N3 16
 Yes, we are done!!
-N4 1
-N8 2
-N3 4
-N6 3
-N5 7
-N1 8
-N2 6
-N7 5
+N1 15
+N2 13
+N7 11
+N8 9
+N9 7
+N14 5
+N15 3
+N16 1
+N13 2
+N11 4
+N12 6
+N10 8
+N6 10
+N5 12
+N4 14
+N3 16
 Yes, we are done!!
-N6 2
-N3 5
-N7 4
-N8 3
-N5 6
-N2 1
-N1 7
-N4 8
+N1 15
+N2 13
+N7 11
+N8 9
+N9 7
+N14 5
+N15 3
+N16 1
+N13 2
+N11 4
+N12 6
+N10 8
+N6 10
+N5 12
+N4 14
+N3 16
 Yes, we are done!!
-N7 6
-N8 3
-N4 2
-N3 5
-N1 7
-N5 4
-N2 1
-N6 8
+N1 15
+N2 13
+N7 11
+N8 9
+N9 7
+N14 5
+N15 3
+N16 1
+N13 2
+N11 4
+N12 6
+N10 8
+N6 10
+N5 12
+N4 14
+N3 16
 Yes, we are done!!
-N6 8
-N5 2
-N8 7
-N3 1
-N1 3
-N7 6
-N4 4
-N2 5
-"6.20 sec (avg of 5 runs)"
-("17.53 sec" "1.13 sec" "8.39 sec" "1.88 sec" "2.05 sec")
+N1 15
+N2 13
+N7 11
+N8 9
+N9 7
+N14 5
+N15 3
+N16 1
+N13 2
+N11 4
+N12 6
+N10 8
+N6 10
+N5 12
+N4 14
+N3 16"1.44 sec (avg of 5 runs)"
+("1.44 sec" "1.44 sec" "1.45 sec" "1.44 sec" "1.43 sec")
+LISA-MANNERS> 
